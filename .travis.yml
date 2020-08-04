@@ -1,0 +1,27 @@
+sudo: required
+
+services:
+  - docker
+
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - pip install pipenv
+  - pipenv install --dev --deploy
+
+script:
+  - make build
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+    - PIPENV_IGNORE_VIRTUALENVS=1
+
+branches:
+  only:
+    - master
