@@ -2,8 +2,8 @@ build:
 	pipenv install --dev
 
 lint:
-	pipenv run flake8 ./app ./tests
-	PIPENV_PYUP_API_KEY="" pipenv check ./app ./tests
+	pipenv run flake8 ./app
+	PIPENV_PYUP_API_KEY="" pipenv check ./app
 
 test: lint
 	pipenv run pytest --cov-report term-missing --cov app --capture no
