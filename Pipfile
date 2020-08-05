@@ -5,21 +5,9 @@ name = "pypi"
 
 [packages]
 flask = "*"
-requests = "*"
-tzlocal = "*"
-gunicorn = "*"
-flask-httpauth = "*"
-flask-assets = "*"
-pika = "*"
-redis = "*"
-werkzeug = "*"
 
 [dev-packages]
-pytest = "*"
 "flake8" = "*"
-codecov = "*"
-pytest-cov = "*"
-requests-mock = "*"
 
 [requires]
 python_version = "3.7"
