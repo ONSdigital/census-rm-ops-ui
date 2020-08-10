@@ -1,13 +1,16 @@
 import os
 
 from flask import Flask
+from jinja2 import Template
 
 app = Flask(__name__)
+
+t = Template("Hello World!")
 
 
 @app.route('/')
 def hello_world():
-    return "Hello World!"
+    return t.render()
 
 
 if __name__ == '__main__':

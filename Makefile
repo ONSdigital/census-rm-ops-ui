@@ -12,4 +12,4 @@ docker:
 	docker build -t eu.gcr.io/census-rm-ci/rm/census-rm-ops-ui .
 
 docker-run: docker
-	docker run --network=censusrmdockerdev_default  -p 8003:80 eu.gcr.io/census-rm-ci/rm/census-rm-ops-ui:latest
+	docker run --network=censusrmdockerdev_default  -p 8234:8234 eu.gcr.io/census-rm-ci/rm/census-rm-ops-ui:latest
