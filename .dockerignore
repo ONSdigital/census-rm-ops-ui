@@ -1,0 +1,6 @@
+.flake8
+.gitignore
+*.yml
+.idea
+.git
+.dockerignore
