@@ -2,8 +2,8 @@ build:
 	pipenv install --dev
 
 lint:
-	pipenv run flake8 ./app
-	PIPENV_PYUP_API_KEY="" pipenv check ./app
+	pipenv run flake8
+	PIPENV_PYUP_API_KEY="" pipenv check
 
 start:
 	pipenv run python run.py
