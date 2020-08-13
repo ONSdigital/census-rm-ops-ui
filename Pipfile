@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 flask = "*"
+pyjwt = "*"
+cryptography = "*"
+requests = "*"
 
 [dev-packages]
 "flake8" = "*"
