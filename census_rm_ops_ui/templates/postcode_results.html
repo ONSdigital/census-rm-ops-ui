@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends "layouts/base.html" %}
+{% block main %}
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+</head>
+    <div role="main" id="main" class="page__main">
+    <div class="grid">
+      <div class="grid__col col-12@m">
+        <div id="case-search-results" class="social-case-search-results">
+          {% if results is not none %}
+            <h2 class="case-search-results-info" id="search-results-info">
+              {{ results|length }} result{% if results|length != 1 %}s{% endif %} found for {{ postcode }}
+            </h2>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 
 <table style="width:70%">
   <tr>
@@ -14,8 +30,8 @@
   </tr>
     {% for result in data %}
         <tr>
-            <td>{{result.addressLine1}}</td>
-            <td>{{result.addressType}}</td>
+            <td>{{ result.address_summery }}</td>
+            <td>{{result.addressLevel}}</td>
             <td>{{result.caseType}}</td>
             <td>{{result.estabType}}</td>
             <td>{{result.caseRef}}</td>
@@ -23,30 +39,9 @@
     {% endfor %}
 </table>
 
-  <div role="main" id="main" class="page__main">
-    <div class="grid">
-      <div class="grid__col col-12@m">
-        <div id="case-search-results" class="social-case-search-results">
-          {% if results is not none %}
-            <h2 class="case-search-results-info" id="search-results-info">
-              {{ results|length }} result{% if results|length != 1 %}s{% endif %} found for {{ postcode }}
-            </h2>
-            <ul class="list list--bare" id="search-results-list">
-              {% for result in data %}
-                <li class="list__item u-mb-s" id="search-results-item-{{ loop.index }}">
-                  <span class="u-mr-s"
-                    id="search-results-postcode-{{ loop.index }}">{{ result.postcode }}</span>
-                  <span id="search-results-address-{{ loop.index }}">{{ result.addressLine1 }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-</head>
+
 <body>
 
 </body>
+{% endblock %}
 </html>

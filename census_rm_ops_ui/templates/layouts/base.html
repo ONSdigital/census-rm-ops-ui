@@ -1,0 +1,35 @@
+{% extends 'layouts/base-head.html' %}
+
+{% block base %}
+  {% block body %}
+  <body>
+    <div class="page account">
+      <div class="page__content">
+
+        <div class="skip">
+          <a class="skip__link" href="#main">Skip to content</a>
+        </div>
+
+        <header class="header header--internal header--thin">
+          {% include 'partials/header.html' %}
+          {% block header %}{% endblock header %}
+        </header>
+
+        <div class="container container--wide page__container">
+        {% if g.maintenance_message %}
+{#          {% include 'partials/planned-maintenance-message.html' %}#}
+        {% endif %}
+        {% block main %}{% endblock main %}
+        </div>
+
+      </div>
+
+      {% block footer %}
+        {% include ('partials/footer.html') %}
+      {% endblock %}
+
+    </div>
+    <script src="{{ scripts_cdn }}"></script>
+  </body>
+  {% endblock body %}
+{% endblock base %}

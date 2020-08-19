@@ -9,6 +9,8 @@ pyjwt = "*"
 cryptography = "*"
 requests = "*"
 structlog = "*"
+flask-assets = "*"
+cssmin = "*"
 
 [dev-packages]
 "flake8" = "*"

@@ -5,7 +5,7 @@ import requests
 from flask import request, Blueprint, render_template
 
 IAP_AUDIENCE = os.getenv('IAP_AUDIENCE', None)
-home_bp = Blueprint('home_bp', __name__, template_folder='templates')
+home_bp = Blueprint('home_bp', __name__, template_folder='templates', static_folder='static')
 
 
 def get_jwt():
