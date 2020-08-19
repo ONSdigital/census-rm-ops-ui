@@ -15,7 +15,7 @@ def search_postcode():
     matching_cases = case_controller.get_case_by_postcode(stripped_postcode)
 
     for case in matching_cases:
-        case['address_summery'] = ', '.join(case[key] for
+        case['address_summary'] = ', '.join(case[key] for
                                             key in ('organisationName',
                                                     'addressLine1',
                                                     'addressLine2',
