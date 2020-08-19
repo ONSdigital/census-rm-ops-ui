@@ -11,7 +11,7 @@ logger = wrap_logger(logging.getLogger(__name__))
 
 def get_case_by_postcode(postcode):
     logger.info('Getting case by postcode', postcode=postcode)
-    response = requests.get(f'{Config.CASE_API_URL}/cases/postcode', postcode=postcode)
+    response = requests.get(f'{Config.CASE_API_URL}/cases/postcode/{postcode}')
     try:
         response.raise_for_status()
     except HTTPError:
