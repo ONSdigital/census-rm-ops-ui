@@ -19,6 +19,6 @@ def get_case_by_postcode(postcode):
             logger.debug('No cases were found for postcode', postcode=postcode)
             return dict()
         logger.debug('Error searching for case by postcode', postcode=postcode)
-        raise Exception
+        raise
 
     return response.json()

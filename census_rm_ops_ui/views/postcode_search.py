@@ -1,6 +1,6 @@
 from pprint import pprint
 
-from flask import Blueprint, request, render_template
+from flask import Blueprint, render_template, request
 
 from census_rm_ops_ui.controllers import case_controller
 
@@ -16,8 +16,13 @@ def search_postcode():
 
     for case in matching_cases:
         case['address_summery'] = ', '.join(case[key] for
-                                    key in ('organisationName', 'addressLine1', 'addressLine2', 'addressLine3', 'townName', 'postcode')
-                                    if case.get(key))
+                                            key in ('organisationName',
+                                                    'addressLine1',
+                                                    'addressLine2',
+                                                    'addressLine3',
+                                                    'townName',
+                                                    'postcode')
+                                            if case.get(key))
 
     pprint(matching_cases)
 

@@ -2,7 +2,7 @@ import logging
 import sys
 
 from structlog import configure
-from structlog.processors import TimeStamper, JSONRenderer
+from structlog.processors import JSONRenderer, TimeStamper
 from structlog.stdlib import add_log_level, filter_by_level
 
 from config import Config
@@ -43,6 +43,3 @@ def logger_initial_config():
             JSONRenderer(),
         ]
     )
-
-    logging.getLogger('pika').setLevel(Config.LOG_LEVEL_PIKA)
-    logging.getLogger('paramiko').setLevel(Config.LOG_LEVEL_PARAMIKO)
