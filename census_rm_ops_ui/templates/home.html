@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Census-rm-ops-ui</title>
+    </head>
+    <body>
+        <h1>Hello, {{ email }}! Welcome to ops-ui. Please enter in a postcode to search</h1>
+
+    <div class="case-search">
+      <div class="container container--wide">
+        <form action="{{ url_for('postcode_search_bp.search_postcode') }}" method='get'>
+          <div class="field">
+            <label class="label venus" for="postcode-search">Find case by postcode</label>
+            <input class="input input--text input-width-7 u-fl u-mr-s u-mb-xs u-pb-xs u-pt-xs" type="text" name="postcode" id="postcode-search" required/>
+          </div>
+          <button type="submit" class="btn u-pb-xs u-pt-xs" id="postcode-search-submit">Search</button>
+        </form>
+      </div>
+    </div>
+    </body>
+</html>

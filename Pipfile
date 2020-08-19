@@ -8,6 +8,7 @@ flask = "*"
 pyjwt = "*"
 cryptography = "*"
 requests = "*"
+structlog = "*"
 
 [dev-packages]
 "flake8" = "*"
