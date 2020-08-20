@@ -17,3 +17,11 @@ class DevelopmentConfig(Config):
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
     CASE_API_URL = os.getenv('CASE_API_URL', 'http://localhost:8161')
     ENVIRONMENT = os.getenv('ENVIRONMENT', 'DEV')
+
+
+class TestConfig(DevelopmentConfig):
+    # Dummy URL to avoid any real API calls going out
+    CASE_API_URL = 'http://test'
+
+    ENVIRONMENT = 'TEST'
+    TESTING = True

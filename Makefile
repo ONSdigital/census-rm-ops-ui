@@ -5,6 +5,9 @@ lint:
 	pipenv run flake8
 	PIPENV_PYUP_API_KEY="" pipenv check
 
+test: lint
+	pipenv run pytest --cov=census_rm_ops_ui
+
 start:
 	pipenv run python run.py
 

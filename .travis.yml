@@ -13,7 +13,7 @@ install:
   - pipenv install --dev --deploy
 
 script:
-  - make lint
+  - make test
   - make docker
 
 after_success:

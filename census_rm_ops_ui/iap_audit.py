@@ -29,9 +29,18 @@ def get_iap_jwt(iap_audience):
     return decoded_jwt
 
 
-@lru_cache()
 def get_iap_public_key(key_id):
+    try:
+        return get_iap_public_keys()[key_id]
+    except KeyError:
+        # Try refreshing the public keys if the key ID is not in the cache
+        get_iap_public_keys.cache_clear()
+        refreshed_public_keys = get_iap_public_keys()
+        return refreshed_public_keys[key_id]
+
+
+@lru_cache()
+def get_iap_public_keys():
     resp = requests.get('https://www.gstatic.com/iap/verify/public_key')
     resp.raise_for_status()
-    iap_public_key_cache = resp.json()
-    return iap_public_key_cache[key_id]
+    return resp.json()
