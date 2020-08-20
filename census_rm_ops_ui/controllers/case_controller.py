@@ -1,17 +1,16 @@
 import logging
 
 import requests
+from flask import current_app
 from requests import HTTPError
 from structlog import wrap_logger
-
-from config import Config
 
 logger = wrap_logger(logging.getLogger(__name__))
 
 
 def get_case_by_postcode(postcode):
-    logger.info('Getting case by postcode', postcode=postcode)
-    response = requests.get(f'{Config.CASE_API_URL}/cases/postcode/{postcode}')
+    logger.debug('Getting case by postcode', postcode=postcode)
+    response = requests.get(f'{current_app.config["CASE_API_URL"]}/cases/postcode/{postcode}')
     try:
         response.raise_for_status()
     except HTTPError:

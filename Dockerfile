@@ -7,7 +7,7 @@ RUN pip install pipenv
 RUN groupadd --gid 1000 ops-ui && \
     useradd --create-home --system --uid 1000 --gid ops-ui ops-ui
 WORKDIR /home/ops-ui
-CMD ["python3", "run.py"]
+CMD ["./gunicorn_starter.sh"]
 
 COPY Pipfile* /home/ops-ui/
 RUN pipenv install --deploy --system

@@ -11,9 +11,12 @@ requests = "*"
 structlog = "*"
 flask-assets = "*"
 cssmin = "*"
+gunicorn = "*"
 
 [dev-packages]
 "flake8" = "*"
+pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"

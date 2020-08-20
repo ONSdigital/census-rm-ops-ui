@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from flask import Blueprint, render_template, request
 
 from census_rm_ops_ui.controllers import case_controller
@@ -23,7 +21,5 @@ def search_postcode():
                                                     'townName',
                                                     'postcode')
                                             if case.get(key))
-
-    pprint(matching_cases)
 
     return render_template('postcode_results.html', data=matching_cases, postcode=postcode)

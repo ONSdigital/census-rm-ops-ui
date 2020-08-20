@@ -1,5 +1,6 @@
 import logging
 import os
+from functools import partial
 
 from flask import Flask
 from flask_assets import Environment
@@ -9,7 +10,6 @@ from webassets import Bundle
 from census_rm_ops_ui.iap_audit import log_iap_audit
 from census_rm_ops_ui.logger import logger_initial_config
 from census_rm_ops_ui.views import setup_blueprints
-from config import Config
 
 
 def create_app(config_name='Config'):
@@ -19,8 +19,9 @@ def create_app(config_name='Config'):
 
     logger_initial_config()
     logger = wrap_logger(logging.getLogger(__name__))
-    # TODO
-    logger.info('Starting print file service', app_log_level=Config.LOG_LEVEL, environment='DEV')
+    logger.info('Starting Census Response Operations UI',
+                app_log_level=app.config['LOG_LEVEL'],
+                environment=app.config['ENVIRONMENT'])
 
     assets = Environment(app)
     assets.url = app.static_url_path
@@ -30,7 +31,8 @@ def create_app(config_name='Config'):
     js_min = Bundle('js/*', filters='jsmin', output='minimised/all.min.js')
     assets.register('js_all', js_min)
 
-    app.before_request(log_iap_audit)
+    app.before_request(partial(log_iap_audit, iap_audience=app.config['IAP_AUDIENCE']))
+
     setup_blueprints(app)
 
     return app
