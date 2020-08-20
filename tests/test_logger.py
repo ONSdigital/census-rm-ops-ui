@@ -5,6 +5,7 @@ import os
 from structlog import wrap_logger
 
 from census_rm_ops_ui.logger import logger_initial_config
+from tests import unittest_helper
 
 
 def test_json_logging(caplog):
@@ -20,4 +21,4 @@ def test_json_logging(caplog):
     # Then
     message_contents = {"event": "Test", "level": "error", "service": "census-rm-ops-ui"}
     for key, value in message_contents.items():
-        assert message_json[key] == value
+        unittest_helper.assertEqual(message_json[key], value)

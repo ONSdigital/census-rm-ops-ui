@@ -8,7 +8,7 @@ from structlog import wrap_logger
 logger = wrap_logger(logging.getLogger(__name__))
 
 
-def get_case_by_postcode(postcode, case_api_url):
+def get_cases_by_postcode(postcode, case_api_url):
     logger.debug('Getting case by postcode', postcode=postcode)
     response = requests.get(f'{case_api_url}/cases/postcode/{urllib.parse.quote(postcode)}')
     try:
