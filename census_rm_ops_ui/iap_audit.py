@@ -23,7 +23,9 @@ def get_iap_jwt(iap_audience):
     iap_jwt = request.headers.get('x-goog-iap-jwt-assertion')
     if not iap_jwt:
         return
+    # Get the signing key ID from the header
     key = get_iap_public_key(jwt.get_unverified_header(iap_jwt).get('kid'))
+
     # Note ES256 requires the cryptography module
     decoded_jwt = jwt.decode(iap_jwt, key, algorithms=['ES256'], audience=iap_audience)
     return decoded_jwt

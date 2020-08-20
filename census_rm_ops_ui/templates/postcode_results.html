@@ -1,39 +1,40 @@
 {% extends "layouts/base.html" %}
 {% block main %}
-    <div role="main" id="main" class="page__main">
-          {% if results is not none %}
-            <h1 style=font-size:30px id="search-results-info">
-              {{ data|length }} results{% if data|length != 1 %}s{% endif %} for "{{ postcode }}"
-            </h1>
-          {% endif %}
-        <a href={{ url_for('home_bp.index') }} role="button" class="btn btn--secondary btn--small u-mb-m btn--link">
-              <span class="btn__inner">Search again</span>
-            </a>
-        <div class="grid">
-            <div class="grid__col col-12@m">
-                <table class="table table--row-hover">
-                <thead class="table__head">
-                    <tr class="table__row">
-                        <th scope="col" class="table__header">Address</th>
-                        <th scope="col" class="table__header">Address Level</th>
-                        <th scope="col" class="table__header">Case Type</th>
-                        <th scope="col" class="table__header">Estab Type</th>
-                        <th scope="col" class="table__header">Case Ref</th>
-                    </tr>
-                </thead>
-                <tbody class="table__body">
-                {% for result in data %}
-                    <tr class="table__row">
-                        <td class="table__cell"> <a href={{ result.caseRef }}>{{result.address_summary}}</a></td>
-                        <td class="table__cell">{{result.addressLevel}}</td>
-                        <td class="table__cell">{{result.caseType}}</td>
-                        <td class="table__cell">{{result.estabType}}</td>
-                        <td class="table__cell">{{result.caseRef}}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                </table>
-            </div>
+  <div role="main" id="main" class="page__main">
+    {% if results is not none %}
+      <h1 style=font-size:30px id="search-results-info">
+        {{ cases|length }} result{% if cases|length != 1 %}s{% endif %} for postcode: "{{ postcode }}"
+      </h1>
+    {% endif %}
+    <a href={{ url_for('postcode_search_bp.postcode_search') }} role="button"
+       class="btn btn--secondary btn--small u-mb-m btn--link">
+      <span class="btn__inner">Search again</span>
+    </a>
+    <div class="grid">
+      <div class="grid__col col-12@m">
+        <table class="table table--row-hover">
+          <thead class="table__head">
+          <tr class="table__row">
+            <th scope="col" class="table__header">Address</th>
+            <th scope="col" class="table__header">Address Level</th>
+            <th scope="col" class="table__header">Case Type</th>
+            <th scope="col" class="table__header">Estab Type</th>
+            <th scope="col" class="table__header">Case Ref</th>
+          </tr>
+          </thead>
+          <tbody class="table__body">
+          {% for result in cases %}
+            <tr class="table__row">
+              <td class="table__cell"><a href={{ result.caseRef }}>{{ result.address_summary }}</a></td>
+              <td class="table__cell">{{ result.addressLevel }}</td>
+              <td class="table__cell">{{ result.caseType }}</td>
+              <td class="table__cell">{{ result.estabType }}</td>
+              <td class="table__cell">{{ result.caseRef }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
 {% endblock %}
