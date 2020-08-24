@@ -20,6 +20,9 @@
             <th scope="col" class="table__header">Case Type</th>
             <th scope="col" class="table__header">Estab Type</th>
             <th scope="col" class="table__header">Case Ref</th>
+            <th scope="col" class="table__header">Region</th>
+            <th scope="col" class="table__header">UPRN</th>
+
           </tr>
           </thead>
           <tbody class="table__body">
@@ -30,6 +33,8 @@
               <td class="table__cell">{{ result.caseType }}</td>
               <td class="table__cell">{{ result.estabType }}</td>
               <td class="table__cell">{{ result.caseRef }}</td>
+              <td class="table__cell">{{ result.region }}</td>
+              <td class="table__cell">{{ result.uprn }}</td>
             </tr>
           {% endfor %}
           </tbody>
