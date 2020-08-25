@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% set cdn_hash = "17.0.0" %}
+{% set cdn_url_prefix = "https://cdn.ons.gov.uk/sdc/design-system/"~cdn_hash %}
+{% set css_responsive_cdn = cdn_url_prefix~"/css/main.css" %}
+{% set scripts_cdn = cdn_url_prefix~"/scripts/main.js" %}
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Census ROps Case Management">
+    <meta name="author" content="Census-RM" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" href="{{ cdn_url_prefix }}/favicons/favicon.ico" >
+
+    <title>{% block page_title %}Census ROps Case Management{% endblock page_title %}</title>
+    <!--[if gt IE 8]><!-->
+      <script>document.documentElement.className = document.documentElement.className.replace('no-js','has-js')</script>
+    <!--<![endif]-->
+    <link rel=stylesheet type=text/css href="{{ css_responsive_cdn }}">
+    {% assets "scss_all" %}
+    <link rel=stylesheet type=text/css href="{{ ASSET_URL }}">
+    {% endassets %}
+  </head>
+
+{% block base %}{% endblock %}
+</html>

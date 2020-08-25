@@ -8,9 +8,17 @@ flask = "*"
 pyjwt = "*"
 cryptography = "*"
 requests = "*"
+structlog = "*"
+flask-assets = "*"
+cssmin = "*"
+gunicorn = "*"
 
 [dev-packages]
 "flake8" = "*"
+pytest = "*"
+pytest-cov = "*"
+responses = "*"
+codecov = "*"
 
 [requires]
 python_version = "3.7"

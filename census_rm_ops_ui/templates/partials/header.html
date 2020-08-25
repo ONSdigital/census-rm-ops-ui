@@ -1,0 +1,33 @@
+{% block header %}
+  <div class="header__top" role="banner">
+    <div class="container container--wide">
+      <div class="header__grid-top grid grid--gutterless grid--flex grid--between grid--vertical-center grid--no-wrap">
+        <div class="grid__col col-auto">
+          {% set logo_cdn_print = cdn_url_prefix~"/img/ons-logo-black-en.svg" %}
+          {% set logo_cdn_web = cdn_url_prefix~"/img/ons-logo-white.svg" %}
+          <div class="logo">
+            <a href="/">
+              <img src="{{ logo_cdn_web }}" alt="Office for National Statistics logo" class="logo__img header__logo print__hidden">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header__main">
+    <div class="container container--wide">
+      <div class="grid grid--gutterless grid--flex grid--between grid--vertical-center grid--no-wrap">
+        <div class="grid__col col-auto u-flex-shrink">
+          <h1 class="header__title">Census ROps Case Management</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header__nav">
+    <div class="container">
+      <nav class="nav nav--horizontal nav--light nav--main nav--h-m js-main-nav" aria-label="Main menu" aria-hidden="true" id="main-nav">
+        </ul>
+      </nav>
+    </div>
+  </div>
+{% endblock header %}

@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+{% block main %}
+  <head>
+    <title>Census ROps Case Management</title>
+  </head>
+  <div class="page__container container container--wide">
+  <main id="main-content" class="page__main">
+    <div class="grid">
+  <h2>Search cases</h2>
+    <div class="grid__col col-8@m">
+      <form action="{{ url_for('postcode_search_bp.postcode_results') }}" method='get'>
+        <div class="field">
+          <label class="label venus" for="search">Enter a postcode</label>
+          <input class="input input--text input-type__input" type="text" name="postcode"
+                 id="postcode-search" required/>
+        </div>
+          <p></p>
+        <button type="submit" class="btn btn--link" id="postcode-search-submit"><span class="btn__inner">Search</span></button>
+      </form>
+    </div>
+    </div>
+  </main>
+  </div>
+{% endblock %}

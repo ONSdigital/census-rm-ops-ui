@@ -13,11 +13,11 @@ install:
   - pipenv install --dev --deploy
 
 script:
-  - make lint
+  - make test
   - make docker
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - pipenv run codecov
 
 env:
   global:
