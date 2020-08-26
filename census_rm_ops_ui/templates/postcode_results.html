@@ -28,7 +28,7 @@
           <tbody class="table__body">
           {% for result in cases %}
             <tr class="table__row">
-              <td class="table__cell"><a href={{ result.caseRef }}>{{ result.address_summary }}</a></td>
+              <td class="table__cell"><a href={{ url_for('case_details_bp.case_details_results', case_id=result.id) }}>{{ result.address_summary }}</a></td>
               <td class="table__cell">{{ result.addressLevel }}</td>
               <td class="table__cell">{{ result.caseType }}</td>
               <td class="table__cell">{{ result.estabType }}</td>
