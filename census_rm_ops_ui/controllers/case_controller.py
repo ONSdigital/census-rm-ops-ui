@@ -21,3 +21,18 @@ def get_cases_by_postcode(postcode, case_api_url):
         raise
 
     return response.json()
+
+
+def get_all_case_details(case_details, case_api_url):
+    logger.debug('Getting all case details', case_details=case_details)
+    response = requests.get(f'{case_api_url}/cases/case_details/{urllib.parse.quote(case_details)}')
+    try:
+        response.raise_for_status()
+    except HTTPError:
+        if response.status_code == 404:
+            logger.debug('No details were found for this case', case_details=case_details)
+            return dict()
+        logger.error('Error searching for details of case', case_details=case_details)
+        raise
+
+    return response.json()
