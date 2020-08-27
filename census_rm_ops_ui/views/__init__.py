@@ -1,4 +1,4 @@
-from case_details import case_details_bp
+from census_rm_ops_ui.views.case_details import case_details_bp
 from census_rm_ops_ui.views.postcode_search import postcode_search_bp
 from census_rm_ops_ui.views.health import health_bp
 
