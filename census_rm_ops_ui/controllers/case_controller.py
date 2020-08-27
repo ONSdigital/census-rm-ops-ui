@@ -29,9 +29,6 @@ def get_all_case_details(case_details, case_api_url):
     try:
         response.raise_for_status()
     except HTTPError:
-        if response.status_code == 404:
-            logger.debug('No details were found for this case', case_details=case_details)
-            return dict()
         logger.error('Error searching for details of case', case_details=case_details)
         raise
 
