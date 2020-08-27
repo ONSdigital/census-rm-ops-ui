@@ -8,8 +8,14 @@
     <h1>Case reference {{ case_details.caseRef }}</h1>
 
     {%  for key, value in case_details.items() %}
-        <p>{{ key }} : {{ value }}</p>
+        <p><b>{{ key }}</b> : {{ value }}</p>
     {% endfor %}
     <h1>Event history</h1>
-    {{ case_events }}
+    {% for event in case_events %}
+        {%  for key, value in event.items() %}
+            <p>{{ key }} : {{ value }}</p>
+        {% endfor %}
+        <br>
+        <br>
+    {% endfor %}
 {% endblock %}
