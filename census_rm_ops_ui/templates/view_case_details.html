@@ -1,21 +1,29 @@
 {% extends "layouts/base.html" %}
 
 {% block main %}
-    <main id="main-content" class="page__main "></main>
-    <p class="field u-mb-l">
-        <a href={{ url_for('postcode_search_bp.postcode_results', postcode=case_details.postcode) }}>Back to search results</a>
-            </p>
-    <h1>Case reference {{ case_details.caseRef }}</h1>
+  <main id="main-content" class="page__main "></main>
+  <p class="field u-mb-l">
+    <a href={{ url_for('postcode_search_bp.postcode_results', postcode=case_details.postcode) }}>Back to search
+      results</a>
+  </p>
+  <h1>Case reference {{ case_details.caseRef }}</h1>
 
-    {%  for key, value in case_details.items() %}
-        <p><b>{{ key }}</b> : {{ value }}</p>
-    {% endfor %}
-    <h1>Event history</h1>
-    {% for event in case_events %}
-        {%  for key, value in event.items() %}
-            <p>{{ key }} : {{ value }}</p>
+  {% for key, value in case_details.items() %}
+    <p><b>{{ key }}</b>: {{ value }}</p>
+  {% endfor %}
+  <h1>Event history</h1>
+  {% for event in case_events %}
+    {% for event_key, event_value in event.items() %}
+      {%  if event_value is mapping %}
+        <p><b>{{ event_key }}</b>:</p>
+        {% for key, value in event_value.items() %}
+          <p style="text-indent: 10px"><b>{{ key }}</b>: {{ value }}</p>
         {% endfor %}
-        <br>
-        <br>
+      {% else %}
+        <p><b>{{ event_key }}</b>: {{ event_value }}</p>
+      {% endif %}
     {% endfor %}
+    <br>
+    <br>
+  {% endfor %}
 {% endblock %}

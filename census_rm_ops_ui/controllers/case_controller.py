@@ -25,7 +25,7 @@ def get_cases_by_postcode(postcode, case_api_url):
 
 def get_all_case_details(case_id, case_api_url):
     logger.debug('Getting all case details', case_id=case_id)
-    response = requests.get(f'{case_api_url}/cases/case_details/{urllib.parse.quote(case_id)}')
+    response = requests.get(f'{case_api_url}/cases/case-details/{urllib.parse.quote(case_id)}')
     try:
         response.raise_for_status()
     except HTTPError:
