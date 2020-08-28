@@ -68,7 +68,7 @@ def test_get_case_details_success():
     case_id = str(uuid.uuid4())
     url_safe_case_id = urllib.parse.quote(case_id)
 
-    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/case_details/{url_safe_case_id}',
+    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/case-details/{url_safe_case_id}',
                   json.dumps(TEST_CASE))
 
     case_details = get_all_case_details(case_id, TestConfig.CASE_API_URL)
@@ -81,7 +81,7 @@ def test_get_case_details_returnss_error():
     case_id = str(uuid.uuid4())
     url_safe_case_id = urllib.parse.quote(case_id)
 
-    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/case_details/{url_safe_case_id}',
+    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/case-details/{url_safe_case_id}',
                   status=500)
     with pytest.raises(HTTPError):
         get_all_case_details(case_id, TestConfig.CASE_API_URL)

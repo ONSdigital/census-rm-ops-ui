@@ -28,15 +28,19 @@ def test_case_details_results(app_test_client):
         'caseRef': '123456789',
         'events': [{'id': '14063759-c608-4f9f-8fa5-988f52260d7f', 'eventType': 'SAMPLE_LOADED',
                     'eventDescription': 'Create case sample received', 'eventDate': '2020-08-26T07:38:47.453158Z',
-                    'type': 'None', 'channel': 'RM', 'transactionId': 'None'}]
+                    'type': 'None', 'channel': 'RM', 'transactionId': 'None',
+                    'eventPayload': '{\"testKey\": \"testValue\"}'}, ]
     }
     # Mock the case API response
-    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/case_details/{url_safe_case_id}',
+    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/case-details/{url_safe_case_id}',
                   body=json.dumps(case_details_payload))
     # When
-    response = app_test_client.get(f'/case_details/?case_id={url_safe_case_id}')
+    response = app_test_client.get(f'/case-details/?case_id={url_safe_case_id}')
 
     # Then
+
+    case_details_payload['events'][0]['eventPayload'] = json.loads(case_details_payload['events'][0]['eventPayload'])
+
     unittest_helper.assertEqual(response.status_code, 200)
     assert_case_details(case_details_payload, response)
 
@@ -44,6 +48,9 @@ def test_case_details_results(app_test_client):
 def assert_case_details(case_details_payload, response):
     for value in case_details_payload.values():
         if isinstance(value, list):
-            assert_case_details(value[0], response)
+            for item in value:
+                assert_case_details(item, response)
+        elif isinstance(value, dict):
+            assert_case_details(value, response)
         else:
             unittest_helper.assertIn(value.encode(), response.data)
