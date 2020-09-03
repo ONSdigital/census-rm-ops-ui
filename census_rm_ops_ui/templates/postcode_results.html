@@ -28,14 +28,13 @@
           <tbody class="table__body">
           {% for result in cases %}
           <tr id="{{ loop.index }}" class="table__row">
-            <tr class="table__row">
-              <td class="table__cell"><a href={{ url_for('case_details_bp.case_details_results', case_id=result.id) }}>{{ result.address_summary }}</a></td>
-              <td class="table__cell">{{ result.addressLevel }}</td>
-              <td class="table__cell">{{ result.caseType }}</td>
-              <td class="table__cell">{{ result.estabType }}</td>
-              <td class="table__cell">{{ result.caseRef }}</td>
-              <td class="table__cell">{{ result.region }}</td>
-              <td class="table__cell">{{ result.uprn }}</td>
+              <td id="address_summary" class="table__cell"><a href={{ url_for('case_details_bp.case_details_results', case_id=result.id) }}>{{ result.address_summary }}</a></td>
+              <td id="addressLevel" class="table__cell">{{ result.addressLevel }}</td>
+              <td id="caseType" class="table__cell">{{ result.caseType }}</td>
+              <td id="estabType" class="table__cell">{{ result.estabType }}</td>
+              <td id="caseRef" class="table__cell">{{ result.caseRef }}</td>
+              <td id="region" class="table__cell">{{ result.region }}</td>
+              <td id="uprn" class="table__cell">{{ result.uprn }}</td>
             </tr>
           {% endfor %}
           </tbody>
