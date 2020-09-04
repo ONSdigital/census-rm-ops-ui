@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+{% block main %}
+  <main id="main-content" class="page__main ">
+
+    {% for key, value in uac_qid_link.items() %}
+      {% if key == "caseId" and value != None %}
+        <p>This qid is already linked to case: <b>{{ value }}</b></p>
+      {% elif key =="caseId" and value == None %}
+        <p>Not linked to any cases</p>
+      {% else %}
+        <p><b>{{ key }}</b>: {{ value }}</p>
+      {% endif %}
+    {% endfor %}
+  </main>
+      <form action="{{ url_for('case_details_bp.link_qid_to_case') }}" method='post'>
+        <input value="{{ uac_qid_link.questionnaireId }}" type="hidden" name="qid"
+                 id="qid"/>
+        <input type="hidden" name="case_id"
+                 id="case_id" value="{{ case_id }}"/>
+        <button type="submit" class="btn btn--link" id="qid-search-submit"><span class="btn__inner">Search</span></button>
+            </form>
+{% endblock %}

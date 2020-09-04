@@ -1,5 +1,7 @@
+import json
 import logging
 import urllib
+import uuid
 
 import requests
 from requests import HTTPError
@@ -33,3 +35,26 @@ def get_all_case_details(case_id, case_api_url):
         raise
 
     return response.json()
+
+
+def get_qid(qid, case_api_url):
+    logger.debug('Getting qid details', qid=qid)
+    response = requests.get(f'{case_api_url}/qids/{urllib.parse.quote(qid)}')
+    try:
+        response.raise_for_status()
+    except HTTPError:
+        logger.error('Error searching for details of case', qid=qid)
+        raise
+
+    return response.json()
+
+
+def submit_qid_link(qid, case_id, case_api_url):
+    logger.debug('Attempting to submit qid link', qid=qid, case_id=case_id)
+    payload = {'caseId': case_id, 'questionnaireId': qid}
+    response = requests.put(f'{case_api_url}/qids/link', json=payload)
+    try:
+        response.raise_for_status()
+    except HTTPError:
+        logger.error('Error searching for details of case', case_id=case_id)
+        raise
