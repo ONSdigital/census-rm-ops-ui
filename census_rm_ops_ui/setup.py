@@ -16,7 +16,8 @@ def create_app(config_name='Config'):
     app = Flask(__name__)
     config_name = os.getenv('APP_SETTINGS', config_name)
     app.config.from_object(f'config.{config_name}')
-
+    # Set the secret key to some random bytes. Keep this really secret!
+    app.secret_key = app.config.get('OPS_UI_SECRET')
     logger_initial_config()
     logger = wrap_logger(logging.getLogger(__name__))
     logger.info('Starting Census Response Operations UI',

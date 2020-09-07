@@ -11,12 +11,15 @@ class Config:
 
     ENVIRONMENT = os.getenv('ENVIRONMENT')
 
+    OPS_UI_SECRET = os.getenv('OPS_UI_SECRET')
+
 
 class DevelopmentConfig(Config):
     DEBUG = os.getenv('DEBUG')
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
     CASE_API_URL = os.getenv('CASE_API_URL', 'http://localhost:8161')
     ENVIRONMENT = os.getenv('ENVIRONMENT', 'DEV')
+    OPS_UI_SECRET = os.getenv('OPS_UI_SECRET', 'secret')
 
 
 class TestConfig(DevelopmentConfig):

@@ -41,7 +41,10 @@ def get_qid(qid, case_api_url):
     try:
         response.raise_for_status()
     except HTTPError:
-        logger.error('Error searching for details of qid', qid=qid)
+        if response.status_code == 404:
+            logger.error('Unable to find qid', qid=qid)
+            return None
+        logger.error('Error searching for qid', qid=qid)
         raise
 
     return response.json()
@@ -54,7 +57,7 @@ def submit_qid_link(qid, case_id, case_api_url):
     try:
         response.raise_for_status()
     except HTTPError:
-        logger.error('Error searching for details of case', case_id=case_id)
+        logger.error('Error attempting to submit qid link', case_id=case_id, qid=qid)
         raise
 
     return response

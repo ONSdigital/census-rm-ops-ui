@@ -107,6 +107,30 @@ def test_get_qid():
 
 
 @responses.activate
+def test_get_qid_404_returned():
+    # Given
+    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/qids/{TEST_QID_JSON["questionnaireId"]}',
+                  status=404)
+
+    # When
+    qid_response = get_qid(TEST_QID_JSON['questionnaireId'], TestConfig.CASE_API_URL)
+
+    # Then
+    unittest_helper.assertEqual(qid_response, None)
+
+
+@responses.activate
+def test_get_qid_non_404_returned():
+    # Given
+    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/qids/{TEST_QID_JSON["questionnaireId"]}',
+                  status=500)
+
+    # When
+    with pytest.raises(HTTPError):
+        get_qid(TEST_QID_JSON['questionnaireId'], TestConfig.CASE_API_URL)
+
+
+@responses.activate
 def test_submit_qid_link():
     # Given
     responses.add(responses.PUT, f'{TestConfig.CASE_API_URL}/qids/link')
@@ -119,3 +143,14 @@ def test_submit_qid_link():
     # Then
     unittest_helper.assertEqual(qid_response.status_code, 200)
     unittest_helper.assertEqual(json.dumps(expected_payload).encode(), qid_response.request.body)
+
+
+@responses.activate
+def test_submit_qid_link_500_error():
+    # Given
+    responses.add(responses.PUT, f'{TestConfig.CASE_API_URL}/qids/link', status=500)
+    case_id = str(uuid.uuid4())
+
+    # When
+    with pytest.raises(HTTPError):
+        submit_qid_link(TEST_QID_JSON['questionnaireId'], case_id, TestConfig.CASE_API_URL)

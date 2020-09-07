@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, current_app, render_template, request, url_for, redirect
+from flask import Blueprint, current_app, render_template, request, url_for, redirect, flash
 
 from census_rm_ops_ui.controllers import case_controller
 
@@ -27,6 +27,9 @@ def get_qid_for_linking():
     case_id = request.args.get('case_id')
 
     uac_qid_link = case_controller.get_qid(qid, current_app.config['CASE_API_URL'])
+    if uac_qid_link is None:
+        flash('QID does not exist in RM', category='error')
+        return redirect(url_for('case_details_bp.case_details_results', case_id=case_id, error=True, _anchor='error'))
 
     return render_template('view_qid_details.html', uac_qid_link=uac_qid_link, case_id=case_id)
 
@@ -38,4 +41,5 @@ def link_qid_to_case():
 
     case_controller.submit_qid_link(qid, case_id, current_app.config['CASE_API_URL'])
 
-    return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))
+    flash('QID link has been submitted', category='linked')
+    return redirect(url_for('case_details_bp.case_details_results', case_id=case_id, qid_linked=True))
