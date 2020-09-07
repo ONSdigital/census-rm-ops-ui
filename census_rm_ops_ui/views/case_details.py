@@ -39,4 +39,3 @@ def link_qid_to_case():
     case_controller.submit_qid_link(qid, case_id, current_app.config['CASE_API_URL'])
 
     return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))
-

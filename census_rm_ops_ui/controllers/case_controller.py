@@ -1,7 +1,5 @@
-import json
 import logging
 import urllib
-import uuid
 
 import requests
 from requests import HTTPError
@@ -43,7 +41,7 @@ def get_qid(qid, case_api_url):
     try:
         response.raise_for_status()
     except HTTPError:
-        logger.error('Error searching for details of case', qid=qid)
+        logger.error('Error searching for details of qid', qid=qid)
         raise
 
     return response.json()
@@ -58,3 +56,5 @@ def submit_qid_link(qid, case_id, case_api_url):
     except HTTPError:
         logger.error('Error searching for details of case', case_id=case_id)
         raise
+
+    return response

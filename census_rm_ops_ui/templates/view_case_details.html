@@ -1,7 +1,7 @@
 {% extends "layouts/base.html" %}
 
 {% block main %}
-  <main id="main-content" class="page__main "></main>
+  <main id="main-content" class="page__main ">
   <p class="field u-mb-l">
     <a href={{ url_for('postcode_search_bp.postcode_results', postcode=case_details.postcode) }}>Back to search
       results</a>
@@ -26,6 +26,7 @@
     <br>
     <br>
   {% endfor %}
+
       <form action="{{ url_for('case_details_bp.get_qid_for_linking') }}" method='get'>
         <div class="field">
           <label class="label venus" for="search">Submit QID</label>
@@ -35,6 +36,7 @@
                  id="case_id" value="{{ case_details.id }}"/>
         </div>
           <p></p>
-        <button type="submit" class="btn btn--link" id="qid-search-submit"><span class="btn__inner">Search</span></button>
+        <button type="submit" class="btn btn--link" id="qid-search-submit"><span class="btn__inner">Submit QID Link</span></button>
       </form>
+  </main>
 {% endblock %}
