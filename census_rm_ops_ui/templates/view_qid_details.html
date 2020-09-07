@@ -6,7 +6,7 @@
   </p>
 
   <p><b>questionnaireId:</b> {{ uac_qid_link.questionnaireId }}</p>
-  {% if uac_qid_link.caseId is not none %}
+  {% if uac_qid_link.caseId %}
   <p><b>This QID is already linked to case:</b> {{ uac_qid_link.caseId }}</p>
   <p>Are you sure you want to relink this qid to another case?  </p>
   {% endif %}
