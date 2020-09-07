@@ -29,7 +29,7 @@ def get_qid_for_linking():
     uac_qid_link = case_controller.get_qid(qid, current_app.config['CASE_API_URL'])
     if uac_qid_link is None:
         flash('QID does not exist in RM', category='error')
-        return redirect(url_for('case_details_bp.case_details_results', case_id=case_id, error=True, _anchor='error'))
+        return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))
 
     return render_template('view_qid_details.html', uac_qid_link=uac_qid_link, case_id=case_id)
 
@@ -42,4 +42,4 @@ def link_qid_to_case():
     case_controller.submit_qid_link(qid, case_id, current_app.config['CASE_API_URL'])
 
     flash('QID link has been submitted', category='linked')
-    return redirect(url_for('case_details_bp.case_details_results', case_id=case_id, qid_linked=True))
+    return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))

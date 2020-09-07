@@ -64,8 +64,8 @@ def test_get_qid_for_linking(app_test_client):
 
     # Then
     unittest_helper.assertEqual(response.status_code, 200)
-    unittest_helper.assertIn(f'<b>questionnaireId</b>: {qid}'.encode(), response.data)
-    unittest_helper.assertIn(f'This qid is already linked to case: <b>{case_id}</b>'.encode(), response.data)
+    unittest_helper.assertIn(f'<b>questionnaireId:</b> {qid}'.encode(), response.data)
+    unittest_helper.assertIn(f'<b>This QID is already linked to case:</b> {case_id}'.encode(), response.data)
     unittest_helper.assertIn('Link QID'.encode(), response.data)
 
 
