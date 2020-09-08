@@ -67,7 +67,7 @@ def test_get_qid_for_linking(app_test_client):
     unittest_helper.assertIn(f'<b>QID:</b> {qid}'.encode(), response.data)
     unittest_helper.assertIn(f'<b>Case ID:</b> {case_id}'.encode(), response.data)
     unittest_helper.assertIn(
-        'Warning, this QID is already linked to a case, if you submit it will be re-linked'.encode(),
+        'Warning: This QID is already linked to a case. If you submit it will be re-linked.'.encode(),
         response.data)
     unittest_helper.assertIn('Link QID'.encode(), response.data)
 

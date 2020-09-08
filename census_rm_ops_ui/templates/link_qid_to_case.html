@@ -10,7 +10,7 @@
     <p style="text-indent: 20px"><b>Case ID:</b> {{ case_id_to_link }}</p>
     {% if uac_qid_link.caseId %}
       <br>
-      <h3>Warning, this QID is already linked to a case, if you submit it will be re-linked</h3>
+      <h3>Warning: This QID is already linked to a case. If you submit it will be re-linked.</h3>
       <p style="text-indent: 20px"><b>Current linked case ID:</b> {{ uac_qid_link.caseId }}</p>
     {% endif %}
 
