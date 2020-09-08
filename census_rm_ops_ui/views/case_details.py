@@ -10,7 +10,7 @@ case_details_bp = Blueprint('case_details_bp', __name__, template_folder='templa
 
 @case_details_bp.route('/')
 def case_details_results():
-    case_id = request.args.get('case_id')
+    case_id = request.args['case_id']
 
     case_details = case_controller.get_all_case_details(case_id, current_app.config['CASE_API_URL'])
     case_events = case_details.pop('events')
@@ -21,23 +21,23 @@ def case_details_results():
     return render_template('view_case_details.html', case_details=case_details, case_events=sorted_case_events)
 
 
-@case_details_bp.route('/questionnaire-id/')
+@case_details_bp.route('/link-qid/')
 def get_qid_for_linking():
-    qid = request.args.get('qid')
-    case_id = request.args.get('case_id')
+    qid = request.args['qid']
+    case_id = request.args['case_id']
 
     uac_qid_link = case_controller.get_qid(qid, current_app.config['CASE_API_URL'])
     if uac_qid_link is None:
         flash('QID does not exist in RM', category='error')
         return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))
 
-    return render_template('view_qid_details.html', uac_qid_link=uac_qid_link, case_id=case_id)
+    return render_template('link_qid_to_case.html', uac_qid_link=uac_qid_link, case_id_to_link=case_id)
 
 
-@case_details_bp.route('/questionnaire-id/link/', methods=["POST"])
+@case_details_bp.route('/link-qid/submit/', methods=["POST"])
 def link_qid_to_case():
-    qid = request.form.get('qid')
-    case_id = request.form.get('case_id')
+    qid = request.form['qid']
+    case_id = request.form['case_id']
 
     case_controller.submit_qid_link(qid, case_id, current_app.config['CASE_API_URL'])
 

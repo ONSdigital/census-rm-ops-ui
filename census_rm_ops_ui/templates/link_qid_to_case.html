@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+{% block main %}
+  <main id="main-content" class="page__main ">
+    <p class="field u-mb-l">
+      <a href={{ url_for('case_details_bp.case_details_results', case_id=case_id_to_link) }}>Back to case details
+        page</a>
+    </p>
+    <h3>Confirm linking this QID and Case ID</h3>
+    <p style="text-indent: 20px"><b>QID:</b> {{ uac_qid_link.questionnaireId }}</p>
+    <p style="text-indent: 20px"><b>Case ID:</b> {{ case_id_to_link }}</p>
+    {% if uac_qid_link.caseId %}
+      <br>
+      <h3>Warning, this QID is already linked to a case, if you submit it will be re-linked</h3>
+      <p style="text-indent: 20px"><b>Current linked case ID:</b> {{ uac_qid_link.caseId }}</p>
+    {% endif %}
+
+    <br>
+    <form action="{{ url_for('case_details_bp.link_qid_to_case') }}" method='post'>
+      <input value="{{ uac_qid_link.questionnaireId }}" type="hidden" name="qid"
+             id="qid"/>
+      <input type="hidden" name="case_id"
+             id="case_id_to_link" value="{{ case_id_to_link }}"/>
+      <button type="submit" class="btn btn--link" id="qid-search-submit">
+        <span class="btn__inner">Link QID</span>
+      </button>
+    </form>
+  </main>
+
+{% endblock %}
