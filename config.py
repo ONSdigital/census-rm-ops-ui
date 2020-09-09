@@ -13,6 +13,10 @@ class Config:
 
     OPS_UI_SECRET = os.getenv('OPS_UI_SECRET')
 
+    PREFERRED_URL_SCHEME = 'https'
+
+    IN_GCP = os.getenv('IN_GCP', False)
+
 
 class DevelopmentConfig(Config):
     DEBUG = os.getenv('DEBUG')
@@ -20,6 +24,7 @@ class DevelopmentConfig(Config):
     CASE_API_URL = os.getenv('CASE_API_URL', 'http://localhost:8161')
     ENVIRONMENT = os.getenv('ENVIRONMENT', 'DEV')
     OPS_UI_SECRET = os.getenv('OPS_UI_SECRET', 'secret')
+    PREFERRED_URL_SCHEME = 'http'
 
 
 class TestConfig(DevelopmentConfig):
