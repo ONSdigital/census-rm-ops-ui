@@ -3,7 +3,7 @@ from functools import lru_cache
 
 import jwt
 import requests
-from flask import request
+from flask import request, g
 from structlog import wrap_logger
 
 logger = wrap_logger(logging.getLogger(__name__))
@@ -11,6 +11,7 @@ logger = wrap_logger(logging.getLogger(__name__))
 
 def log_iap_audit(iap_audience):
     iap_jwt = get_iap_jwt(iap_audience) if iap_audience else {'email': 'TEST'}
+    g.user = iap_jwt['email']
     if not iap_jwt:
         return
     logger.info(audit=True,

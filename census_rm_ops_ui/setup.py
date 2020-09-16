@@ -21,7 +21,7 @@ def create_app(config_name='Config'):
     app.secret_key = app.config.get('OPS_UI_SECRET')
     if app.config['IN_GCP'] == 'true':
         app.wsgi_app = ProxyFix(app.wsgi_app)
-    logger_initial_config()
+    logger_initial_config(app.config)
     logger = wrap_logger(logging.getLogger(__name__))
     logger.info('Starting Census Response Operations UI',
                 app_log_level=app.config['LOG_LEVEL'],

@@ -5,13 +5,16 @@ import os
 from structlog import wrap_logger
 
 from census_rm_ops_ui.logger import logger_initial_config
+from census_rm_ops_ui.setup import create_app
 from tests import unittest_helper
+
+app = create_app('TestConfig')
 
 
 def test_json_logging(caplog):
     # Given
     os.environ['JSON_INDENT_LOGGING'] = '1'
-    logger_initial_config()
+    logger_initial_config(app.config)
     logger = wrap_logger(logging.getLogger())
 
     # When

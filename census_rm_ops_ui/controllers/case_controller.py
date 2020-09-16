@@ -1,7 +1,9 @@
 import logging
 import urllib
+import uuid
 
 import requests
+from flask import g
 from requests import HTTPError
 from structlog import wrap_logger
 
@@ -36,13 +38,13 @@ def get_all_case_details(case_id, case_api_url):
 
 
 def get_qid(qid, case_api_url):
-    logger.debug('Getting qid details', qid=qid)
+    logger.debug('Getting qid details', qid=qid, user=g.get('user'))
     response = requests.get(f'{case_api_url}/qids/{urllib.parse.quote(qid)}')
     try:
         response.raise_for_status()
     except HTTPError:
         if response.status_code == 404:
-            logger.error('Unable to find qid', qid=qid)
+            logger.error('Unable to find qid', qid=qid, user=g.get('user'))
             return None
         logger.error('Error searching for qid', qid=qid)
         raise
@@ -51,8 +53,11 @@ def get_qid(qid, case_api_url):
 
 
 def submit_qid_link(qid, case_id, case_api_url):
-    logger.debug('Attempting to submit qid link', qid=qid, case_id=case_id)
-    payload = {'caseId': case_id, 'questionnaireId': qid}
+    tx_id = str(uuid.uuid4())
+    logger.debug('Attempting to submit qid link', qid=qid, case_id=case_id, user=g.get('user'), tx_id=tx_id)
+    payload = {'transactionId': tx_id,
+               'channel': 'ROPS_UI',
+               'qidLink': {'caseId': case_id, 'questionnaireId': qid}}
     response = requests.put(f'{case_api_url}/qids/link', json=payload)
     try:
         response.raise_for_status()
