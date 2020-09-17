@@ -44,7 +44,6 @@ def get_qid(qid, case_api_url):
         response.raise_for_status()
     except HTTPError:
         if response.status_code == 404:
-            logger.error('Unable to find qid', qid=qid, user=g.get('user'))
             return None
         logger.error('Error searching for qid', qid=qid, user=g.get('user'))
         raise
@@ -54,7 +53,7 @@ def get_qid(qid, case_api_url):
 
 def submit_qid_link(qid, case_id, case_api_url):
     tx_id = str(uuid.uuid4())
-    logger.debug('Attempting to submit qid link', qid=qid, case_id=case_id, user=g.get('user'), tx_id=tx_id)
+    logger.info('Attempting to submit qid link', qid=qid, case_id=case_id, user=g.get('user'), tx_id=tx_id)
     payload = {'transactionId': tx_id,
                'channel': 'ROPS_UI',
                'qidLink': {'caseId': case_id, 'questionnaireId': qid}}
@@ -62,7 +61,7 @@ def submit_qid_link(qid, case_id, case_api_url):
     try:
         response.raise_for_status()
     except HTTPError:
-        logger.error('Error attempting to submit qid link', case_id=case_id, qid=qid, user=g.get('user'))
+        logger.error('Error attempting to submit qid link', case_id=case_id, qid=qid, user=g.get('user'), tx_id=tx_id)
         raise
 
     return response
