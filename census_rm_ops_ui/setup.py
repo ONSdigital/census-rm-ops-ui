@@ -6,6 +6,7 @@ from flask import Flask
 from flask_assets import Environment
 from structlog import wrap_logger
 from webassets import Bundle
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from census_rm_ops_ui.iap_audit import log_iap_audit
 from census_rm_ops_ui.logger import logger_initial_config
@@ -16,8 +17,11 @@ def create_app(config_name='Config'):
     app = Flask(__name__)
     config_name = os.getenv('APP_SETTINGS', config_name)
     app.config.from_object(f'config.{config_name}')
-
-    logger_initial_config()
+    # Set the secret key to some random bytes. Keep this really secret!
+    app.secret_key = app.config.get('OPS_UI_SECRET')
+    if app.config['IN_GCP'] == 'true':
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+    logger_initial_config(app.config)
     logger = wrap_logger(logging.getLogger(__name__))
     logger.info('Starting Census Response Operations UI',
                 app_log_level=app.config['LOG_LEVEL'],

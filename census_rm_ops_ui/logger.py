@@ -5,10 +5,8 @@ from structlog import configure
 from structlog.processors import JSONRenderer, TimeStamper
 from structlog.stdlib import add_log_level, filter_by_level
 
-from config import Config
 
-
-def logger_initial_config():
+def logger_initial_config(config):
     def add_service(_1, _2, event_dict):
         """
         Add the service name to the event dict.
@@ -31,7 +29,7 @@ def logger_initial_config():
         event_dict["severity"] = method_name
         return event_dict
 
-    logging.basicConfig(stream=sys.stdout, level=Config.LOG_LEVEL, format="%(message)s")
+    logging.basicConfig(stream=sys.stdout, level=config['LOG_LEVEL'], format="%(message)s")
 
     configure(
         processors=[
@@ -39,7 +37,7 @@ def logger_initial_config():
             add_log_severity,
             filter_by_level,
             add_service,
-            TimeStamper(fmt=Config.LOG_DATE_FORMAT, utc=True, key="created_at"),
+            TimeStamper(fmt=config['LOG_DATE_FORMAT'], utc=True, key="created_at"),
             JSONRenderer(),
         ]
     )
