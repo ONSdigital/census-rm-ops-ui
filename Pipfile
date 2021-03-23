@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 flask = "*"
-pyjwt = "*"
+pyjwt = "==1.7.1"
 cryptography = "*"
 requests = "*"
-structlog = "*"
+structlog = "==20.1.0"
 flask-assets = "*"
 cssmin = "*"
 gunicorn = "*"
