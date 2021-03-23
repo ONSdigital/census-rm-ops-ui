@@ -39,7 +39,7 @@
         <input id="collapsible{{ loop.index }}" class="toggle" name="{{ loop.index }}" type="checkbox">
         <label for="collapsible{{ loop.index }}" class="lbl-toggle" name="{{ loop.index }}">      Event: {{ event['eventType'] }}
           Channel: {{ event['eventChannel'] }}
-          Timestamp: {{ event['eventDate'] }}</label>
+          Timestamp: {{ event['rmEventProcessed'] }}</label>
         <div class="collapsible-content">
           <div class="content-inner">
                 {% for event_key, event_value in event.items() %}
