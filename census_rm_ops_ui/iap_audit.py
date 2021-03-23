@@ -14,7 +14,7 @@ def log_iap_audit(iap_audience):
     if not iap_jwt:
         return
     g.user = iap_jwt['email']
-    logger.info(audit=True,
+    logger.info('Logging iap audit', audit=True,
                 requestPath=request.full_path,
                 requestMethod=request.method,
                 user=iap_jwt["email"])
