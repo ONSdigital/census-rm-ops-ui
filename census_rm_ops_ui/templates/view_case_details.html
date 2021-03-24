@@ -33,21 +33,6 @@
   {% for key, value in case_details.items() %}
     <p><b>{{ key }}</b>: {{ value }}</p>
   {% endfor %}
-  <h1>Event history</h1>
-  {% for event in case_events %}
-    {% for event_key, event_value in event.items() %}
-      {%  if event_value is mapping %}
-        <p><b>{{ event_key }}</b>:</p>
-        {% for key, value in event_value.items() %}
-          <p style="text-indent: 10px"><b>{{ key }}</b>: {{ value }}</p>
-        {% endfor %}
-      {% else %}
-        <p><b>{{ event_key }}</b>: {{ event_value }}</p>
-      {% endif %}
-    {% endfor %}
-    <br>
-    <br>
-  {% endfor %}
   </div>
   <div class="grid__col col-6@m">
     <br>
@@ -63,5 +48,31 @@
         <button type="submit" class="btn btn--link" id="qid-search-submit"><span class="btn__inner">Submit</span></button>
       </form></div>
   </div>
+  <div>
+    <h1>Event history</h1>
+  {% for event in case_events %}
+      <div class="wrap-collabsible">
+        <input id="collapsible{{ loop.index }}" class="toggle" name="{{ loop.index }}" type="checkbox">
+        <label for="collapsible{{ loop.index }}" class="lbl-toggle" name="{{ loop.index }}"><b>Event:</b> {{ event['eventType'] }} | <b>Channel:</b> {{ event['eventChannel'] }} | <b>Timestamp:</b> {{ event['rmEventProcessed'] }}</label>
+        <div class="collapsible-content">
+          <div class="content-inner">
+                {% for event_key, event_value in event.items() %}
+                  {%  if event_value is mapping %}
+                    <p><b>{{ event_key }}</b>:</p>
+                    {% for key, value in event_value.items() %}
+                      <p style="text-indent: 30px"><b>{{ key }}</b>: {{ value }}</p>
+                    {% endfor %}
+                  {% else %}
+                    <p><b>{{ event_key }}</b>: {{ event_value }}</p>
+                  {% endif %}
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+
+  {% endfor %}
+
+  </div>
   </main>
+
 {% endblock %}

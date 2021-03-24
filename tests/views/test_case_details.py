@@ -27,6 +27,7 @@ def test_case_details_results(app_test_client):
         'estabType': 'HOUSEHOLD',
         'caseRef': '123456789',
         'events': [{'id': '14063759-c608-4f9f-8fa5-988f52260d7f', 'eventType': 'SAMPLE_LOADED',
+                    'rmEventProcessed': '2020-08-26T07:38:47.453158Z',
                     'eventDescription': 'Create case sample received', 'eventDate': '2020-08-26T07:38:47.453158Z',
                     'type': 'None', 'channel': 'RM', 'transactionId': 'None',
                     'eventPayload': '{\"testKey\": \"testValue\"}'}, ]
@@ -92,6 +93,7 @@ def test_get_qid_failed_linking(app_test_client):
         'estabType': 'HOUSEHOLD',
         'caseRef': '123456789',
         'events': [{'id': '14063759-c608-4f9f-8fa5-988f52260d7f', 'eventType': 'SAMPLE_LOADED',
+                    'rmEventProcessed': '2020-08-26T07:38:47.453158Z',
                     'eventDescription': 'Create case sample received', 'eventDate': '2020-08-26T07:38:47.453158Z',
                     'type': 'None', 'channel': 'RM', 'transactionId': 'None',
                     'eventPayload': '{\"testKey\": \"testValue\"}'}, ]
@@ -141,6 +143,7 @@ def test_submitting_qid_link_to_case_api(app_test_client):
         'estabType': 'HOUSEHOLD',
         'caseRef': '123456789',
         'events': [{'id': '14063759-c608-4f9f-8fa5-988f52260d7f', 'eventType': 'QUESTIONNAIRE_LINKED',
+                    'rmEventProcessed': '2020-08-26T07:38:47.453158Z',
                     'eventDescription': 'Questionnaire Linked', 'eventDate': '2020-08-26T07:38:47.453158Z',
                     'type': 'None', 'channel': 'RM', 'transactionId': 'None',
                     'eventPayload': event_payload}, ]
