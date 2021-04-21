@@ -37,6 +37,18 @@ def get_all_case_details(case_id, case_api_url):
     return response.json()
 
 
+def get_summary_case_details(case_id, case_api_url):
+    logger.debug('Getting all case details', case_id=case_id)
+    response = requests.get(f'{case_api_url}/cases/{urllib.parse.quote(case_id)}')
+    try:
+        response.raise_for_status()
+    except HTTPError:
+        logger.error('Error searching for summary details of case', case_id=case_id)
+        raise
+
+    return response.json()
+
+
 def get_qid(qid, case_api_url):
     logger.debug('Getting qid details', qid=qid, user=g.get('user'))
     response = requests.get(f'{case_api_url}/qids/{urllib.parse.quote(qid)}')

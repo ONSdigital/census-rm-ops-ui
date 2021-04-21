@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, current_app, render_template, request, url_for, redirect, flash
+from flask import Blueprint, current_app, flash, redirect, render_template, request, url_for
 
 from census_rm_ops_ui.controllers import case_controller
 
@@ -21,6 +21,23 @@ def case_details_results():
     return render_template('view_case_details.html', case_details=case_details, case_events=sorted_case_events)
 
 
+def is_ccs_type_qid(qid):
+    qid_type = qid[:2]
+    return {
+        '51': True,
+        '52': True,
+        '53': True,
+        '54': True,
+        '61': True,
+        '62': True,
+        '63': True,
+        '71': True,
+        '73': True,
+        '81': True,
+        '83': True,
+    }.get(qid_type, False)
+
+
 @case_details_bp.route('/link-qid/')
 def get_qid_for_linking():
     qid = request.args['qid']
@@ -29,6 +46,14 @@ def get_qid_for_linking():
     uac_qid_link = case_controller.get_qid(qid, current_app.config['CASE_API_URL'])
     if uac_qid_link is None:
         flash('QID does not exist in RM', category='error')
+        return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))
+
+    case = case_controller.get_summary_case_details(case_id, current_app.config['CASE_API_URL'])
+    if is_ccs_type_qid(qid) and not case['surveyType'] == 'CCS':
+        flash('Linking a CCS QID to a non CCS case is forbidden', category='error')
+        return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))
+    if not is_ccs_type_qid(qid) and case['surveyType'] == 'CCS':
+        flash('Linking a non CCS QID to a CCS case is forbidden', category='error')
         return redirect(url_for('case_details_bp.case_details_results', case_id=case_id))
 
     return render_template('link_qid_to_case.html', uac_qid_link=uac_qid_link, case_id_to_link=case_id)
