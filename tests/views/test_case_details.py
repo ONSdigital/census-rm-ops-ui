@@ -2,6 +2,7 @@ import json
 import urllib
 import uuid
 
+import pytest
 import responses
 
 from config import TestConfig
@@ -122,10 +123,22 @@ def test_get_qid_failed_linking(app_test_client):
 
 
 @responses.activate
-def test_ccs_qid_link_to_non_ccs_case_is_forbidden(app_test_client):
+@pytest.mark.parametrize('ccs_qid', [
+    '5100000000',
+    '5234567890',
+    '5334567890',
+    '5434567890',
+    '6134567890',
+    '6234567890',
+    '6334567890',
+    '7134567890',
+    '7334567890',
+    '8134567890',
+    '8334567890',
+])
+def test_ccs_qid_link_to_non_ccs_case_is_forbidden(app_test_client, ccs_qid):
     # Given
     case_id = str(uuid.uuid4())
-    ccs_qid = '7134567890'
     url_safe_case_id = urllib.parse.quote(case_id)
 
     qid_payload = {
@@ -175,10 +188,16 @@ def test_ccs_qid_link_to_non_ccs_case_is_forbidden(app_test_client):
 
 
 @responses.activate
-def test_census_qid_link_to_ccs_case_is_forbidden(app_test_client):
+@pytest.mark.parametrize('qid', [
+    '0100000000',
+    '0234567890',
+    '1134567890',
+    '2334567890',
+    '3134567890',
+])
+def test_census_qid_link_to_ccs_case_is_forbidden(app_test_client, qid):
     # Given
     case_id = str(uuid.uuid4())
-    qid = '0134567890'
     url_safe_case_id = urllib.parse.quote(case_id)
 
     qid_payload = {

@@ -23,19 +23,7 @@ def case_details_results():
 
 def is_ccs_type_qid(qid):
     qid_type = qid[:2]
-    return {
-        '51': True,
-        '52': True,
-        '53': True,
-        '54': True,
-        '61': True,
-        '62': True,
-        '63': True,
-        '71': True,
-        '73': True,
-        '81': True,
-        '83': True,
-    }.get(qid_type, False)
+    return qid_type in {'51', '52', '53', '54', '61', '62', '63', '71', '73', '81', '83', }
 
 
 @case_details_bp.route('/link-qid/')
