@@ -7,8 +7,8 @@ import pytest
 import responses
 from requests import HTTPError
 
-from census_rm_ops_ui.controllers.case_controller import get_cases_by_postcode, get_all_case_details, get_qid, \
-    submit_qid_link
+from census_rm_ops_ui.controllers.case_controller import get_all_case_details, get_cases_by_postcode, \
+    get_qid, get_summary_case_details, submit_qid_link
 from config import TestConfig
 from tests import unittest_helper
 
@@ -164,3 +164,27 @@ def test_submit_qid_link_500_error(app_test_client):
     with app_test_client.app_context():
         with pytest.raises(HTTPError):
             submit_qid_link(TEST_QID_JSON['questionnaireId'], case_id, TestConfig.CASE_API_URL)
+
+
+@responses.activate
+def test_get_case_summary_success():
+    case_id = str(uuid.uuid4())
+    url_safe_case_id = urllib.parse.quote(case_id)
+
+    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/{url_safe_case_id}',
+                  json.dumps(TEST_CASE))
+
+    case_details = get_summary_case_details(case_id, TestConfig.CASE_API_URL)
+
+    unittest_helper.assertEqual(case_details, TEST_CASE)
+
+
+@responses.activate
+def test_get_case_summary_returns_error():
+    case_id = str(uuid.uuid4())
+    url_safe_case_id = urllib.parse.quote(case_id)
+
+    responses.add(responses.GET, f'{TestConfig.CASE_API_URL}/cases/{url_safe_case_id}',
+                  status=500)
+    with pytest.raises(HTTPError):
+        get_summary_case_details(case_id, TestConfig.CASE_API_URL)
